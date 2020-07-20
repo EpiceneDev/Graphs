@@ -39,7 +39,30 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # make a queue
+        q = Queue()
+
+        # enqueue our starting node
+        q.enqueue(starting_vertex)
+
+        # make a set to track if we have traversed node already
+        visited = set()
+
+        # while our queue isn't empty
+        while q.size() > 0:
+        ## dequeeue whatever's at the front of our line, this is our current_node
+            current_node = q.dequeue()
+        ## if we haven't visited
+        if current_node not in visited:
+        ### mark as visited
+            visited.add(current_node)
+        ### get it neighbors
+            neighbors = self.get_neighbors()
+        ### for each of the neighbors,
+            for neighbor in neighbors:
+        #### add to queue
+                q.enqueue(neighbor)
+
 
     def dft(self, starting_vertex):
         """
@@ -63,7 +86,23 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+    #   BFS(graph, startVert):
+    #       for v of graph.vertexes:
+    #         v.color = white
+
+    #       startVert.color = gray
+        #     queue.enqueue(startVert)
+
+    #       while !queue.isEmpty():
+    #           u = queue[0]  // Peek at head of the queue, but do not dequeue!
+
+    #           for v of u.neighbors:
+    #             if v.color == white:
+    #             v.color = gray
+    #             queue.enqueue(v)
+
+    #           queue.dequeue()
+    #           u.color = black
 
     def dfs(self, starting_vertex, destination_vertex):
         """
