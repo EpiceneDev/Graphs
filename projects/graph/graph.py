@@ -7,12 +7,7 @@ class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
-        self.vertices = {
-        '0': {'1', '3'},
-        '1': {'0'},
-        '2': set(),
-        '3': {'0'}
-        }   
+        self.vertices = {}   
 
 
     def add_vertex(self, vertex_id):
@@ -32,7 +27,7 @@ class Graph:
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
@@ -57,7 +52,7 @@ class Graph:
         ### mark as visited
             visited.add(current_node)
         ### get it neighbors
-            neighbors = self.get_neighbors()
+            neighbors = self.get_neighbors(current_node)
         ### for each of the neighbors,
             for neighbor in neighbors:
         #### add to queue
@@ -69,7 +64,27 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # make a stack
+        s = Stack()
+        # push on our starting node
+        s.push(starting_vertex)
+        # make a set to track if we've been here before
+        visited = set()
+        #while our stack isn't empty
+        while s.size() > 0:
+        ## pop off top, this is the current_node
+            current_node = s.pop()
+        ## if we haven't visited this vertex before
+            if current_node not in visited:
+        ### mark as visited
+                visited.add(current_node)
+                print(current_node)
+        ### get its neighbors
+                neighbors = self.get_neighbors(current_node)
+        ### for each of the neighbors
+                for neighbor in neighbors:
+        #### add to our stack
+                    s.push(neighbor)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -86,6 +101,27 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
+        # make a queue
+        q = Queue()
+        # enqueue start node
+        q.enqueue(starting_vertex)
+        # make a set to track visited nodes
+        visited = set()
+        # while queue is not None
+        while q.size() > 0:
+        ## dequeue from front of the line, make current node
+            current_node = q.dequeue()
+        ## check if we visited, if not:
+            if current_node not in visited:
+        ### make it as visited
+                visited.add(current_node)
+                print(current_node)
+        ### iterate over neighbors
+                neighbors = self.get_neighbors(current_node)
+                for neighbor in neighbors:
+        #### add to queue
+                    q.enqueue(neighbor)
+        
     #   BFS(graph, startVert):
     #       for v of graph.vertexes:
     #         v.color = white
