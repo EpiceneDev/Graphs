@@ -141,7 +141,7 @@ class Graph:
         visited = set()
         q = Queue()
 
-        q.enqueue(starting_vertex)
+        q.enqueue([starting_vertex])
         # visited.append(starting_vertex)
 
         while q.size() > 0:
@@ -190,6 +190,43 @@ class Graph:
         #  place the nodes into stack
         #  when hit destination, return the stack
         #   in reverse order
+        # DFS ALGORITHM
+        # Create an empty stack
+        # Add THE STARTING VERTEX TO A PATH (LIST) BEFORE ADDING IT to the stack
+        # Create an empty set to store visited nodes
+        # While the stack is not empty...
+            # Pop, the last PATH
+            # GRAB THE LAST VERTEX FROM THE PATH
+            # CHECK IF IT'S THE TARGET
+                # IF SO, RETURN THE PATH
+            # Check if it's been visited
+            # If it has not been visited...
+                # Mark it as visited
+                # Then add A PATH TO all neighbors to the back of the stack
+                    # (Make a copy of the path before adding)
+
+        s = Stack()
+
+        s.push([starting_vertex])
+
+        visited = set()
+
+        while s.size() > 0:
+            last_path = s.pop()
+
+            last_vertex = last_path[-1]
+
+            if last_vertex == destination_vertex:
+                return last_path
+
+            if last_vertex not in visited:
+                visited.add(last_vertex)
+
+                for neighbor in self.get_neighbors(last_vertex):
+                    new_path = list(last_path)
+                    new_path.append(neighbor)
+                    s.push(new_path
+                    )
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
