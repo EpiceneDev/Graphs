@@ -6,11 +6,17 @@ class SocialGraph:
     def __init__(self):
         self.last_id = 0
         self.users = {}
+
+        # adjacency list representation of the graph
         self.friendships = {}
 
     def add_friendship(self, user_id, friend_id):
         """
         Creates a bi-directional friendship
+
+        Therefore creates an undirected graph
+​
+        Makes TWO friendships
         """
         if user_id == friend_id:
             print("WARNING: You cannot be friends with yourself")
@@ -28,6 +34,12 @@ class SocialGraph:
         self.users[self.last_id] = User(name)
         self.friendships[self.last_id] = set()
 
+    def fisher_yates_shuffle(self, l):
+        for i in range(0, len(l)):
+            random_index = random.randint(i, len(l) - 1)
+            l[random_index], l[i] = l[i], l[random_index]
+
+
     def populate_graph(self, num_users, avg_friendships):
         """
         Takes a number of users and an average number of friendships
@@ -42,14 +54,37 @@ class SocialGraph:
         self.last_id = 0
         self.users = {}
         self.friendships = {}
-        # !!!! IMPLEMENT ME
 
         # Add users
+        for user in range(num_users):
+            self.add_user(user)
+
+        # create the x,y graph in the list friendshib_combinations       
+        friendship_combinations = []
+        
+        # O(n^2)
+        for user in range(1, self.last_id + 1):
+            for friend in range(user + 1, self.last_id + 1):
+                friendship_combinations.append((user, friend))
 
         # Create friendships
+        # * Hint 1: To create N random friendships, 
+        # you could create a list with all possible friendship combinations of user ids, 
 
-    def get_all_social_paths(self, user_id):
-        """
+        self.fisher_yates_shuffle(friendship_combinations)
+
+        total_friendships = num_users * avg_friendships
+
+        friends_to_make = friendship_combination[:(total_friendships//2)]
+
+        # Create friendships
+        for friendship in friends_to_make:
+            self.add_friendship(friendship[0], friendship[1])
+
+
+        def get_all_social_paths(self, user_id):
+            
+            """
         Takes a user's user_id as an argument
 
         Returns a dictionary containing every user in that user's
@@ -58,7 +93,12 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
+        # use bft to find shortest path between friends
+        ## iterate through bfs(user_id, friend_id) to find 
+        ## the earliest(?) (<--TODO)  child connection
+        ### store the path to each friend in dictionary as a set 
+        ###  in the visited dict  {friend_id, [path]}
+        ## find shortest path of each friend
         return visited
 
 
