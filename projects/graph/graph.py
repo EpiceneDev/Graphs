@@ -141,6 +141,7 @@ class Graph:
         Return a list containing the shortest path from
         starting_vertex to destination_vertex in
         breath-first order.
+        
 
          BFS ALGORITHM
         # Create an empty queue
@@ -198,6 +199,17 @@ class Graph:
 
     #           queue.dequeue()
     #           u.color = black
+    #    BFS RECURSIVE ALGORITHM
+        #check if vertex has been visited
+            #if not...
+                # mark as visited
+                # print
+                # call dfs_recursive on each child
+                # if vertex == destination_vertex:
+            #if starting vertex is destination:
+                #return path
+            #mark it as visited
+            #call dfs_recursive on each neighbor
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -256,17 +268,7 @@ class Graph:
 
         This should be done using recursion.
 
-         BFS RECURSIVE ALGORITHM
-        #check if vertex has been visited
-            #if not...
-                # mark as visited
-                # print
-                # call dfs_recursive on each child
-                if vertex == destination_vertex:
-            #if starting vertex is destination:
-                #return path
-            #mark it as visited
-            #call dfs_recursive on each neighbor
+      
         """
         if path is None:
             path = []

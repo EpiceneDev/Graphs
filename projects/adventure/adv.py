@@ -29,6 +29,10 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
+# Set the starting room to the current room
+current_room = world.starting_room
+
+
 
 
 # TRAVERSAL TEST

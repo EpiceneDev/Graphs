@@ -81,6 +81,7 @@ class SocialGraph:
         for friendship in friends_to_make:
             self.add_friendship(friendship[0], friendship[1])
 
+        
 
         def get_all_social_paths(self, user_id):
             
@@ -92,6 +93,7 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
+        q = Queue()
         visited = {}  # Note that this is a dictionary, not a set
         # use bft to find shortest path between friends
         ## iterate through bfs(user_id, friend_id) to find 
@@ -99,6 +101,23 @@ class SocialGraph:
         ### store the path to each friend in dictionary as a set 
         ###  in the visited dict  {friend_id, [path]}
         ## find shortest path of each friend
+        q.enqueue([user_id])
+
+        while q.size() > 0:
+
+            current_path = q.dequeue()
+            current_node = current_path[-1]
+            
+            if current_node not in visited:
+                visited[current_node] = current_path
+
+                friends = self.friendships[current_node]
+
+                for friend in friends:
+                    friend_path = current_path.copy()
+                    friend_path.append(friend)
+
+                    q.enqueue(friend_path)
         return visited
 
 
