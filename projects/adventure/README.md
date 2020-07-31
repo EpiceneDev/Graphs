@@ -19,7 +19,8 @@ To solve this path, you'll want to construct your own traversal graph. You start
   0: {'n': '?', 's': '?', 'w': '?', 'e': '?'}
 }
 ```
-
+player.travel('s')
+player.current_room.get_exits()
 Try moving south and you will find yourself in room `5` which contains exits `['n', 's', 'e']`. You can now fill in some entries in your graph:
 
 ```

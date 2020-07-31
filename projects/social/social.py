@@ -78,7 +78,7 @@ class SocialGraph:
         for user in range(num_users):
             self.add_user(user)
 
-        # create the x,y graph in the list friendshib_combinations       
+        # create the x,y graph in the list friendship_combinations       
         friendship_combinations = []
         
         # O(n^2)
