@@ -5,6 +5,19 @@ from world import World
 import random
 from ast import literal_eval
 
+class Stack():
+    def __init__(self):
+        self.stack = []
+    def push(self, value):
+        self.stack.append(value)
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop()
+        else:
+            return None
+    def size(self):
+        return len(self.stack)
+
 # Load world
 world = World()
 
@@ -30,18 +43,67 @@ player = Player(world.starting_room)
 traversal_path = []
 
 # Set the starting room to the current room
-current_room = world.starting_room
+player.current_room = world.starting_room
 # player.travel('s')
 # player.current_room.get_exits()
 
+# Store visited rooms
+visited = set()
+visited.add(Player.current_room)
 
+go_back = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+
+stack = Stack()
+
+visited_rooms = set()
+
+map = World.rooms
 
 # TODO: recursively 
-def dft_recursive(current_room):
+def dft_recursive(current_room, map):
+    # check to see if already in the visited rooms
+    # when get to a room, add it to the visited rooms
+    if current_room.id not in visited_rooms:
+        visited_rooms.add(current_room.id)
+    # find exits and shuffle for random pick to traverse
+    # get_exits is a BFT
+    exits = random.shuffle(Room.get_exits(current_room))
 
-    # base case
-    while len(traversal_path) != 500 and '?' in traversal_path: 
-        exits = Room.get_exits(current_room) # BFT
+    # check each exit/direction
+    # if it exists, check if in visited rooms
+    # if room isn't add it to visited rooms
+    if "n" in exits and current_room.get_room_in_direction("n") not in visited_rooms:
+        visited_rooms.add(current_room.id)
+    ## To keep direction moved, add room to the stack
+        stack.push("n")
+    ## also add it to the traversal path since not visited
+        traversal_path.append("n")
+    # travel that direction
+    # if there is a room, move player to that room
+    # by Room
+    current_room = current_room.get_room_in_direction("n")
+
+    if "s" in exits and current_room.get_room_in_direction("s") not in visited_rooms:
+        visited_rooms.add(current_room.id)
+        stack.push("s")
+        current_room = current_room.get_room_in_direction("s")
+
+    elif "e" in exits and current_room.get_room_in_direction("e") not in visited_rooms:
+        visited_rooms.add(current_room.id)
+        stack.push("e")
+        current_room = current_room.get_room_in_direction("e")
+
+    elif "w" in exits and current_room.get_room_in_direction("w") not in visited_rooms:
+        visited_rooms.add(current_room.id)
+        stack.push("w")
+        current_room = current_room.get_room_in_direction("w")
+
+    # if ❔is found, 
+    # remove the last valid direction from the stack
+    # get the reverse direction from the opposite dictionary
+    # add the reverse direction to the traversal path
+    # change current room to go_back path
+        
 
     return traversal_path 
 
