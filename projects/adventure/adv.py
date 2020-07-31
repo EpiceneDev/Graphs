@@ -49,7 +49,7 @@ player.current_room = world.starting_room
 
 # Store visited rooms
 visited = set()
-visited.add(Player.current_room)
+visited.add(player.current_room)
 
 go_back = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
@@ -57,7 +57,7 @@ stack = Stack()
 
 visited_rooms = set()
 
-map = World.rooms
+map = world.rooms
 
 # TODO: recursively 
 def dft_recursive(current_room, map):
@@ -99,11 +99,15 @@ def dft_recursive(current_room, map):
         current_room = current_room.get_room_in_direction("w")
 
     # if ❔is found, 
+    else:
     # remove the last valid direction from the stack
+        explore_this = stack.pop()
     # get the reverse direction from the opposite dictionary
+        reverse = go_back.get(explore_this)
     # add the reverse direction to the traversal path
+        traversal_path.append(reverse)
     # change current room to go_back path
-        
+        current_room = current_room.get_room_in_direction(reverse)
 
     return traversal_path 
 
