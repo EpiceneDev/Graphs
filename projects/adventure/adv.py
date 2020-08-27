@@ -62,9 +62,10 @@ traversal_path = []
 
 visited = set()
 
-directions = {"north": "n", "south": "s", "east": "e", "west": "w"} 
+go_back = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'} 
 
-go_back = {'n': 's', 'e': 'w', 's': 'n', 'w': 'e'}        
+direction_dict = {'n': 'n', 's': 's', 'e': 'e', 'w': 'w'}
+direction_list = ['n', 's', 'e', 'w']
 
 stack = Stack()
 
@@ -76,7 +77,7 @@ visited_exits = set()
 
 # To populate the main data with the rooms
 while len(visited) != len(room_graph):
-    
+
     # # If not in the secondary list
     # # add it to the visited exits
     # if current_room.id not in visited:
@@ -110,40 +111,38 @@ while len(visited) != len(room_graph):
     if current_room.id not in visited:
         visited.add(current_room.id) 
 
-    if "w" in exits and current_room.get_room_in_direction("w") not in visited_exits:
-        stack.push("w")
-        traversal_path.append("w")
-        current_room = current_room.get_room_in_direction("w")  
-       
+    if "n" in exits and current_room.get_room_in_direction("n") not in visited_exits:
+        stack.push("n")
+        traversal_path.append("n")
+        current_room = current_room.get_room_in_direction("n")  
+     
     elif "s" in exits and current_room.get_room_in_direction("s") not in visited_exits:
         stack.push("s")
         traversal_path.append("s")
         current_room = current_room.get_room_in_direction("s")  
-       
-    elif "n" in exits and current_room.get_room_in_direction("n") not in visited_exits:
-        stack.push("n")
-        traversal_path.append("n")
-        current_room = current_room.get_room_in_direction("n")  
-       
 
     elif "e" in exits and current_room.get_room_in_direction("e") not in visited_exits:
         stack.push("e")
         traversal_path.append("e")
         current_room = current_room.get_room_in_direction("e")  
-       
 
-    # if room has not been visited, 
-    else:
+    elif "w" in exits and current_room.get_room_in_direction("w") not in visited_exits:
+        stack.push("w")
+        traversal_path.append("w")
+        current_room = current_room.get_room_in_direction("w") 
+
+
+    else: 
     # remove the last valid direction from the stack
         direction = stack.pop()
-    # get the reverse direction from the opposite dictionary
+    # get the reverse direction from the go-back dictionary
         reverse = go_back.get(direction)
     # add the reverse direction to the traversal path
         traversal_path.append(reverse)
     # change current room to go_back path
         current_room = current_room.get_room_in_direction(reverse)
 
-
+    #TODO Refine backtracking!
 
 
 

@@ -56,6 +56,12 @@ If all paths have been explored, you're done!
 
 It is very difficult to calculate the shortest possible path that traverses the entire graph. Why?
 
+'''
+ANSWER: The paths are not weighted. If it were, could use Dijkstra's algorithm to find shortest path.
+ otherwise would need to find nearest nodes and remap the entire graph with weights according to distance. 
+ Than could use Dijkstra's algorithm to solve.
+ '''
+
 My best path is 957 moves. Can you find a shorter path?
 
 
