@@ -142,8 +142,6 @@ while len(visited) != len(room_graph):
     # change current room to go_back path
         current_room = current_room.get_room_in_direction(reverse)
 
-    #TODO Refine backtracking!
-
 
 
 
